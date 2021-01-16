@@ -24,6 +24,7 @@ db.sequelize.sync();
 // Routes
 require("./routes/category.routes")(app);
 require("./routes/order.routes")(app);
+require("./routes/vehicle.routes")(app);
 
 
 // set port, listen for requests
