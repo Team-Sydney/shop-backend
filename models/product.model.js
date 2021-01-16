@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     catid: {
-      type: Sequelize.BOOLEAN
+      type: Sequelize.INTEGER
     },
     quantity: {
       type: Sequelize.INTEGER
