@@ -1,18 +1,18 @@
 module.exports = (sequelize, Sequelize) => {
-  const Order = sequelize.define('Orders', {
-    oid: {
+  const Customer = sequelize.define('Customers', {
+    cid: {
       type: Sequelize.INTEGER,
       primaryKey: true
     },
-    cid: {
+    uid: {
       type: Sequelize.INTEGER,
     },
-    qrCode: {
-      type: Sequelize.TEXT,
+    phoneNum: {
+      type: Sequelize.STRING
     }
   });
 
  
-  return Order;
+  return Customer;
 };
 

@@ -24,7 +24,12 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.customer = require("./customer.model.js")(sequelize, Sequelize);
+db.vehicle = require("./vehicle.model.js")(sequelize, Sequelize);
+db.business = require("./business.model.js")(sequelize, Sequelize);
+db.product = require("./product.model.js")(sequelize, Sequelize);
 db.order = require("./order.model.js")(sequelize, Sequelize);
+db.category = require("./category.model.js")(sequelize, Sequelize);
 
 
 module.exports = db;

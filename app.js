@@ -20,6 +20,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require("./models");
 db.sequelize.sync();
 
+// Routes
+require("./routes/category.routes")(app);
 
 
 // set port, listen for requests
