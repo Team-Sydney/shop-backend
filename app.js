@@ -23,6 +23,7 @@ db.sequelize.sync();
 
 // Routes
 require("./routes/category.routes")(app);
+require("./routes/customer.routes")(app);
 require("./routes/order.routes")(app);
 
 
