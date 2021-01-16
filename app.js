@@ -19,12 +19,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Database
 const db = require("./models");
-db.sequelize.sync();
+db.sequelize.sync({force:true}); // Set force to false if you'd like to use existing tables, otherwise keep it true as we keep on finalizing our models
 
 // Routes
 require("./routes/category.routes")(app);
 require("./routes/customer.routes")(app);
 require("./routes/order.routes")(app);
+require("./routes/vehicle.routes")(app);
+
 require("./routes/business.routes")(app);
 
 // set port, listen for requests

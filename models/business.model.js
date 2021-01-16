@@ -2,6 +2,7 @@ module.exports = (sequelize, Sequelize) => {
   const Business = sequelize.define('Businesses', {
     bid: {
       type: Sequelize.INTEGER,
+      autoIncrement: true,
       primaryKey: true
     },
     uid: {
