@@ -7,6 +7,9 @@ module.exports = (sequelize, Sequelize) => {
     cid: {
       type: Sequelize.INTEGER,
     },
+    bid: {
+      type: Sequelize.INTEGER,
+    },
     qrCode: {
       type: Sequelize.TEXT,
     }

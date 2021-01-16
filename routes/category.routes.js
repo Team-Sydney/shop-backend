@@ -3,7 +3,7 @@ const controller = new CategoryController();
 
 module.exports = (app) => {
 
-  var router = require("express").Router();
+  let router = require("express").Router();
 
   // Create a category
   router.post("/", controller.createCategory);

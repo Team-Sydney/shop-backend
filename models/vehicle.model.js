@@ -10,6 +10,9 @@ module.exports = (sequelize, Sequelize) => {
       brand: {
         type: Sequelize.STRING
       },
+      color: {
+        type: Sequelize.STRING
+      },
       model: {
         type: Sequelize.STRING
       },
