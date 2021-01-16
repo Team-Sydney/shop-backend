@@ -1,6 +1,7 @@
 const db = require('../../../models');
 const Customer = db.customer;
 const Vehicle = db.vehicle;
+const Order = db.order;
 
 class CustomerController {
   createCustomer(req, res) {
@@ -43,14 +44,26 @@ class CustomerController {
   
   findByUID(req, res) {
       const id = req.params.id;
-      Customer.findAll(req.body, { 
-        where: { uid: id },
-        include: [{
-          model: Vehicle,
-          where: { cid : cid}
-        }] 
+      Customer.findOne({ 
+        where: { uid: id }
+      })
+      .then(customer => {
+        const custId = customer.cid
+        return Customer.findOne({
+          where: { cid: custId },
+          include: [{
+            model: Vehicle,
+            where: { cid: custId },
+            required: false
+            }, {
+            model: Order,
+            where: { cid: custId },
+            required: false
+          }]
+        })
       })
       .then(data => {
+        console.log(data)
         res.send(data);
       })
       .catch(err => {

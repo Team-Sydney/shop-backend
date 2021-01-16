@@ -11,5 +11,5 @@ module.exports = (app) => {
 
   router.get("/user/:id", controller.findByUID);
 
-  app.use('/api/controllers', router)
+  app.use('/api/customers', router);
 }

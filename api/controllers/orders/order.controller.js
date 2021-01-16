@@ -38,7 +38,7 @@ class OrderController {
   
   findByBusiness(req, res) {
       const id = req.params.id;
-      Order.findAll(req.body, { 
+      Order.findAll({ 
         where: { bid: id } 
       })
         .then(data => {
