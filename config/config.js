@@ -3,11 +3,11 @@ const fs = require('fs');
 module.exports = {
   development: {
     dialect: "postgres",
-    host: "free-tier.gcp-us-central1.cockroachlabs.cloud",
-    database: "wary-iguana-184.defaultdb",
-    username: "sydney",
-    password: "teamsydney2021",
-    port: 26257,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
     logging: false,
     dialectOptions: {
       ssl: {
