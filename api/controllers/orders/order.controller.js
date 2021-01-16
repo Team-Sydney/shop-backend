@@ -1,5 +1,5 @@
 const db = require('../../../models');
-const Order = db.Order;
+const Order = db.order;
 
 class OrderController {
   createOrder(req, res) {
@@ -37,8 +37,8 @@ class OrderController {
     }
   
   findByBusiness(req, res) {
-      const id = req.body.id;
-      Order.findAll({ 
+      const id = req.params.id;
+      Order.findAll(req.body, { 
         where: { bid: id } 
       })
       .then(data => {
@@ -53,9 +53,9 @@ class OrderController {
   }
 
   findByCustomer(req, res) {
-    const id = req.body.id;
+    const id = req.params.id;
 
-    Order.findAll({
+    Order.findAll(req.body, {
       where: { cid: id }
     })
     .then(data => {
@@ -70,9 +70,9 @@ class OrderController {
   }
 
   findByQRCode(req, res) {
-    const qrCode = req.body.qrCode
+    const qrCode = req.params.qrCode
 
-    Order.findOne({
+    Order.findOne(req.body, {
       where: { qrCode: qrCode }
     })
     .then(data => {
@@ -87,7 +87,7 @@ class OrderController {
   }
   
   delete(req, res) {
-    const id = req.body.id;
+    const id = req.params.id;
 
     Order.destroy({
         where: { oid: id }
