@@ -49,23 +49,20 @@ class CustomerController {
       })
       .then(customer => {
         const created = customer[1];
-        if(created){
-          return customer;
-        } else {
-          const custId = customer.cid
-          return Customer.findOne({
+        const custId = customer[0].cid;
+
+        return Customer.findOne({
+          where: { cid: custId },
+          include: [{
+            model: Vehicle,
             where: { cid: custId },
-            include: [{
-              model: Vehicle,
-              where: { cid: custId },
-              required: false
-              }, {
-              model: Order,
-              where: { cid: custId },
-              required: false
+            required: false
+            }, {
+            model: Order,
+            where: { cid: custId },
+            required: false
             }]
           })
-        }
       })
       .then(data => {
         console.log(data)

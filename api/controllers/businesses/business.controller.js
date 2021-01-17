@@ -45,22 +45,18 @@ class BusinessController {
         const created = data[1];
         const businessId = data[0].bid;
         
-        if (created) {
-          return data;
-        } else {
-          return Business.findOne({
+        return Business.findOne({
+          where: { bid: businessId },
+          include: [{
+            model: Order,
             where: { bid: businessId },
-            include: [{
-              model: Order,
-              where: { bid: businessId },
-              required: false
-            }, {
-              model: Product,
-              where: { bid: businessId },
-              required: false
-            }]
-          })
-        }
+            required: false
+          }, {
+            model: Product,
+            where: { bid: businessId },
+            required: false
+          }]
+        })
 
         console.log(businessId);
       })
