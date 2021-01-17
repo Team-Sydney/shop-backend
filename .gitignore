@@ -1,3 +1,4 @@
 node_modules
 cert/cc-ca.crt
+cert/cc-ca.crt.outdated
 .env
