@@ -2,6 +2,7 @@ module.exports = (sequelize, Sequelize) => {
   const Customer = sequelize.define('Customers', {
     cid: {
       type: Sequelize.INTEGER,
+      autoIncrement: true,
       primaryKey: true
     },
     uid: {
@@ -12,7 +13,5 @@ module.exports = (sequelize, Sequelize) => {
     }
   });
 
- 
   return Customer;
 };
-

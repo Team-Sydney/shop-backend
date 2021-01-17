@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize-cockroachdb");
 const fs = require('fs');
+const { createRelationships } = require("./createRelationships.js");
 
 
 const sequelize = new Sequelize(
@@ -30,6 +31,8 @@ db.business = require("./business.model.js")(sequelize, Sequelize);
 db.product = require("./product.model.js")(sequelize, Sequelize);
 db.order = require("./order.model.js")(sequelize, Sequelize);
 db.category = require("./category.model.js")(sequelize, Sequelize);
+db.orderproduct = require("./orderproduct.model.js")(sequelize, Sequelize);
 
+createRelationships(db.sequelize);
 
 module.exports = db;

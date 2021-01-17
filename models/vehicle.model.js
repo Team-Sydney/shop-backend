@@ -2,12 +2,16 @@ module.exports = (sequelize, Sequelize) => {
     const Vehicle = sequelize.define('Vehicles', {
       vid: {
         type: Sequelize.INTEGER,
+        autoIncrement: true,
         primaryKey: true
       },
       cid: {
         type: Sequelize.INTEGER
       },
       brand: {
+        type: Sequelize.STRING
+      },
+      color: {
         type: Sequelize.STRING
       },
       model: {
