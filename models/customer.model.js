@@ -13,7 +13,5 @@ module.exports = (sequelize, Sequelize) => {
     }
   });
 
- 
   return Customer;
 };
-
