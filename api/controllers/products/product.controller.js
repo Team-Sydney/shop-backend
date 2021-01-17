@@ -15,7 +15,12 @@ class ProductController {
     const product = {
       pid: req.body.pid,
       bid: req.body.bid,
-      name: req.body.name
+      name: req.body.name,
+      catid: req.body.catid,
+      quantity: req.body.quantity,
+      price: req.body.price,
+      desc: req.body.desc,
+      photoURL: req.body.photoURL,
     };
 
     Product.create(product)

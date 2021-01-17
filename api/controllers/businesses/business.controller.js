@@ -17,7 +17,11 @@ class BusinessController {
     const business = {
       bid: req.body.bid,
       uid: req.body.uid,
-      name: req.body.name
+      name: req.body.name,
+      address: req.body.address,
+      phoneNum: req.body.phoneNum,
+      openTime: req.body.openTime,
+      closeTime: req.body.closeTime
     };
 
     Business.create(business)
