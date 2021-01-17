@@ -44,23 +44,28 @@ class CustomerController {
   
   findByUID(req, res) {
       const id = req.params.id;
-      Customer.findOne({ 
+      Customer.findOrCreate({ 
         where: { uid: id }
       })
       .then(customer => {
-        const custId = customer.cid
-        return Customer.findOne({
-          where: { cid: custId },
-          include: [{
-            model: Vehicle,
+        const created = customer[1];
+        if(created){
+          return customer;
+        } else {
+          const custId = customer.cid
+          return Customer.findOne({
             where: { cid: custId },
-            required: false
-            }, {
-            model: Order,
-            where: { cid: custId },
-            required: false
-          }]
-        })
+            include: [{
+              model: Vehicle,
+              where: { cid: custId },
+              required: false
+              }, {
+              model: Order,
+              where: { cid: custId },
+              required: false
+            }]
+          })
+        }
       })
       .then(data => {
         console.log(data)

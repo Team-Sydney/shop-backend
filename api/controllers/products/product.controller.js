@@ -1,5 +1,6 @@
 const db = require('../../../models');
 const Product = db.product;
+const { uploadImageFile } = require('../../../services/uploads/index');
 
 
 class ProductController {
@@ -27,6 +28,45 @@ class ProductController {
             err.message || "An error occurred while creating the product."
         });
       });
+  }
+
+  uploadProductPhoto(req, res) {
+    const id = req.params.id;
+
+    if (!req.file) {
+      res.status(400).send('No photo uploaded.');
+      return;
+    }
+
+    // upload photo
+    const publicImageRes = uploadImageFile(req.file);
+
+    // check whether we got a url result back
+    if (!publicImageRes.startsWith('https')) {
+      res.status(400).send(`Photo not uploaded: ${publicImageRes}`);
+      return;
+    } else {
+      // update product with image url
+      Product.update({ photoURL: publicImageRes }, {
+        where: { pid: id }
+      })
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "The product photo has been updated successfully"
+          });
+        } else {
+          res.send({
+            message: "Unfortunately this product could not be found, please double check the ID."
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Unable to update this product."
+        });
+      })
+    }
   }
 
   findOne(req, res) {
@@ -75,7 +115,7 @@ class ProductController {
       })
       .catch(err => {
         res.status(500).send({
-          message: "Unable to delete this product."
+          message: "Unable to update this product."
         })
       })
   }
