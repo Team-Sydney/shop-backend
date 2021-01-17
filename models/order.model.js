@@ -11,6 +11,10 @@ module.exports = (sequelize, Sequelize) => {
     bid: {
       type: Sequelize.INTEGER,
     },
+    status: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    },
     qrCode: {
       type: Sequelize.TEXT,
     }
