@@ -1,5 +1,5 @@
 module.exports = { 
-    uploadImageFile(file) {
-        return require('./uploadImageFile.js')(file);
+    uploadImageFile(req, res, next) {
+        return require('./uploadImageFile.js')(req, res, next);
     }
 }
