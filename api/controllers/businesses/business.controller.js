@@ -152,22 +152,4 @@ class BusinessController {
   }
 }
 
-async function findProductsByBid(myBid) {
-  Product.findAll({
-    where: { bid: myBid }
-  })
-    .then(data => {
-      return data;
-    })
-}
-
-async function findOrdersByBid(myBid) {
-  Order.findAll({
-    where: { bid: myBid }
-  })
-    .then(data => {
-      return data;
-    })
-}
-
 module.exports = BusinessController;
