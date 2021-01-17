@@ -1,12 +1,12 @@
-const CategoryController = require('../api/controllers/categories/category.controller');
-const controller = new CategoryController();
+const ProductController = require('../api/controllers/products/product.controller');
+const controller = new ProductController();
 
 module.exports = (app) => {
 
   let router = require("express").Router();
 
-  // Create a category
-  router.post("/", controller.createCategory);
+  // Create a product
+  router.post("/", controller.createProduct);
 
   router.get("/:id", controller.findOne)
 
@@ -16,5 +16,5 @@ module.exports = (app) => {
 
   router.delete("/:id", controller.delete)
 
-  app.use('/api/categories', router)
+  app.use('/api/products', router)
 }
