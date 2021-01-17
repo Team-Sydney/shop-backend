@@ -35,11 +35,16 @@ class ProductController {
       });
   }
 
-  uploadProductPhoto(req, res, next) {
+  uploadProductPhoto(req, res) {
     const id = req.params.id;
 
+    if (!req.file) {
+      res.status(400).send('No file uploaded.');
+      return;
+    }
+  
     // upload photo
-    uploadImageFile(req, res, next)
+    uploadImageFile(req.file)
       .then(publicUrl => {
         // update product with image url
         Product.update({ photoURL: publicUrl }, {
@@ -51,7 +56,7 @@ class ProductController {
               message: "The product photo has been updated successfully"
             });
           } else {
-            res.send({
+            res.status(400).send({
               message: "Unfortunately this product could not be found, please double check the ID."
             });
           }

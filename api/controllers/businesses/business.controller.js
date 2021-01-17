@@ -61,8 +61,6 @@ class BusinessController {
             required: false
           }]
         })
-
-        console.log(businessId);
       })
       .then(data => {
         res.send(data);
