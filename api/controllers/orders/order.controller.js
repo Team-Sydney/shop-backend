@@ -107,7 +107,7 @@ class OrderController {
 
     if(order.status){ 
       res.status(400).send({
-        message: "Order has been already completed."
+        message: "Order has already been completed."
       });
       return;
     }
