@@ -1,6 +1,9 @@
 const db = require('../../../models');
 const Business = db.business;
 
+const Product = db.product;
+const Order = db.order;
+
 
 class BusinessController {
   createBusiness(req, res) {
@@ -13,6 +16,7 @@ class BusinessController {
 
     const business = {
       bid: req.body.bid,
+      uid: req.body.uid,
       name: req.body.name
     };
 
@@ -24,6 +28,49 @@ class BusinessController {
         res.status(500).send({
           message: 
             err.message || "An error occurred while creating the business."
+        });
+      });
+  }
+
+  // when business user logs in with uid
+  // if uid empty  create entry with uid autoincrement bid
+  // else , returns business info , all products, and all orders
+  findBusinessProductsOrdersByUid(req, res) {
+    const myUid = req.params.id;
+
+    Business.findOrCreate({
+        where: { uid: myUid }
+      })
+      .then(data => {
+        const created = data[1];
+        const businessId = data[0].bid;
+        
+        if (created) {
+          return data;
+        } else {
+          return Business.findOne({
+            where: { bid: businessId },
+            include: [{
+              model: Order,
+              where: { bid: businessId },
+              required: false
+            }, {
+              model: Product,
+              where: { bid: businessId },
+              required: false
+            }]
+          })
+        }
+
+        console.log(businessId);
+      })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "An error occurred while retrieving or creating this business."
         });
       });
   }
@@ -103,6 +150,24 @@ class BusinessController {
         })
       })
   }
+}
+
+async function findProductsByBid(myBid) {
+  Product.findAll({
+    where: { bid: myBid }
+  })
+    .then(data => {
+      return data;
+    })
+}
+
+async function findOrdersByBid(myBid) {
+  Order.findAll({
+    where: { bid: myBid }
+  })
+    .then(data => {
+      return data;
+    })
 }
 
 module.exports = BusinessController;

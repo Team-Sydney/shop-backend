@@ -10,6 +10,8 @@ module.exports = (app) => {
 
   router.get("/:id", controller.findOne);
 
+  router.get("/", controller.findAll);
+
   router.get("/business/:id", controller.findByBusiness); //Only available for businesses
 
   router.get("/customer/:id", controller.findByCustomer);

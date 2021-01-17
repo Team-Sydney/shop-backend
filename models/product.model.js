@@ -2,6 +2,7 @@ module.exports = (sequelize, Sequelize) => {
   const Product = sequelize.define('Products', {
     pid: {
       type: Sequelize.INTEGER,
+      autoIncrement: true,
       primaryKey: true
     },
     bid: {
