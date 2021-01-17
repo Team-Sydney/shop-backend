@@ -14,26 +14,28 @@ const storage = new Storage();
 const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
 
 // Process the file upload and upload to Google Cloud Storage.
-module.exports = (file) => {
+module.exports = (req, res, next) => {
+
+  if (!req.file) {
+    res.status(400).send('No file uploaded.');
+    return;
+  }
+
   // Create a new blob in the bucket and upload the file data.
-  const blob = bucket.file(`${file.originalname}-${Math.floor(Math.random() * 10 ** 10)}`);
+  const blob = bucket.file(`${Math.floor(Math.random() * 10 ** 10)}-${req.file.originalname}`);
   const blobStream = blob.createWriteStream();
 
-  let publicUrl = "";
-
   blobStream.on('error', err => {
-      return err.message;
+    next(err);
   });
 
   blobStream.on('finish', () => {
-    console.log("Test")
     // The public URL can be used to directly access the file via HTTP.
-    publicUrl = format(
+    const publicUrl = format(
         `https://storage.googleapis.com/${bucket.name}/${blob.name}`
     );
+    res.status(200).send(publicUrl);
   });
 
-  blobStream.end(file.buffer);
-
-  return publicUrl;
+  blobStream.end(req.file.buffer);
 }
