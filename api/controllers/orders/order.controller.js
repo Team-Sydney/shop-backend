@@ -85,6 +85,12 @@ class OrderController {
         })
       });
   }
+
+  confirmOrderNotification(req, res){
+    const id = req.params.id;
+
+    Order.update(req. body, {})
+  }
   
   delete(req, res) {
     const id = req.params.id;
