@@ -1,10 +1,12 @@
 const db = require('../../../models');
 const Order = db.order;
+const Customer = db.customer;
+const { sendNotificationSMS } = require('../../../services/notifications/index');
 
 class OrderController {
   createOrder(req, res) {
     const order = {
-      oid: req.body.oid,
+      // oid: req.body.oid,
       cid: req.body.cid,
       bid: req.body.bid,
       qrCode: req.body.qrCode
@@ -99,10 +101,37 @@ class OrderController {
       });
   }
 
-  confirmOrderNotification(req, res){
+  async confirmOrder(req, res){
     const id = req.params.id;
+    let order = await Order.findOne({ where: {oid: id } });
 
-    Order.update(req. body, {})
+    if(order.status){ 
+      res.status(400).send({
+        message: "Order has been already completed."
+      });
+      return;
+    }
+    Order.update(
+      { status: true },
+      { where: { oid: order.oid } })
+      .then(async num => {
+        if(num == 1) {
+          res.send({
+            message: "The order has been updated successfully"
+          });
+          let customer = await Customer.findOne({ where: { cid: order.cid } });
+          sendNotificationSMS(customer.phoneNum, "Your order is ready, please come at your designated pick-up time.")
+        } else {
+          res.send({
+            message: "Unfortunately this order could not be found, please double check the ID."
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Unable to update this order."
+        })
+      })
   }
   
   delete(req, res) {

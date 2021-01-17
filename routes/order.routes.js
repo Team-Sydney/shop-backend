@@ -18,6 +18,8 @@ module.exports = (app) => {
 
   router.get("/qr/:id", controller.findByQRCode);
 
+  router.put("/:id", controller.confirmOrder);
+
   router.delete("/:id", controller.delete);
 
   app.use('/api/orders', router);
