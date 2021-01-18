@@ -1,2 +1,3 @@
 service: api
-runtime: nodejs14
+runtime: nodejs
+env: flex

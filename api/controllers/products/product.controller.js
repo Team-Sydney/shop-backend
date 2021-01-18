@@ -15,7 +15,12 @@ class ProductController {
     const product = {
       pid: req.body.pid,
       bid: req.body.bid,
-      name: req.body.name
+      name: req.body.name,
+      catid: req.body.catid,
+      quantity: req.body.quantity,
+      price: req.body.price,
+      desc: req.body.desc,
+      photoURL: req.body.photoURL,
     };
 
     Product.create(product)
@@ -34,39 +39,34 @@ class ProductController {
     const id = req.params.id;
 
     if (!req.file) {
-      res.status(400).send('No photo uploaded.');
+      res.status(400).send('No file uploaded.');
       return;
     }
-
+  
     // upload photo
-    const publicImageRes = uploadImageFile(req.file);
-
-    // check whether we got a url result back
-    if (!publicImageRes.startsWith('https')) {
-      res.status(400).send(`Photo not uploaded: ${publicImageRes}`);
-      return;
-    } else {
-      // update product with image url
-      Product.update({ photoURL: publicImageRes }, {
-        where: { pid: id }
-      })
-      .then(num => {
-        if (num == 1) {
-          res.send({
-            message: "The product photo has been updated successfully"
-          });
-        } else {
-          res.send({
-            message: "Unfortunately this product could not be found, please double check the ID."
-          });
-        }
+    uploadImageFile(req.file)
+      .then(publicUrl => {
+        // update product with image url
+        Product.update({ photoURL: publicUrl }, {
+          where: { pid: id }
+        })
+        .then(num => {
+          if (num == 1) {
+            res.send({
+              message: "The product photo has been updated successfully"
+            });
+          } else {
+            res.status(400).send({
+              message: "Unfortunately this product could not be found, please double check the ID."
+            });
+          }
+        })
       })
       .catch(err => {
         res.status(500).send({
           message: "Unable to update this product."
         });
-      })
-    }
+      });
   }
 
   findOne(req, res) {

@@ -28,6 +28,19 @@ class CustomerController {
     })
   }
 
+  findAll(req, res) {
+    Customer.findAll()
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || 'Unfortunately we were unable to retrieve all customers.'
+        });
+      });
+  }
+
   findOne(req, res) {
       const id = req.params.id;
   
@@ -49,23 +62,20 @@ class CustomerController {
       })
       .then(customer => {
         const created = customer[1];
-        if(created){
-          return customer;
-        } else {
-          const custId = customer.cid
-          return Customer.findOne({
+        const custId = customer[0].cid;
+
+        return Customer.findOne({
+          where: { cid: custId },
+          include: [{
+            model: Vehicle,
             where: { cid: custId },
-            include: [{
-              model: Vehicle,
-              where: { cid: custId },
-              required: false
-              }, {
-              model: Order,
-              where: { cid: custId },
-              required: false
+            required: false
+            }, {
+            model: Order,
+            where: { cid: custId },
+            required: false
             }]
           })
-        }
       })
       .then(data => {
         console.log(data)
@@ -77,6 +87,31 @@ class CustomerController {
             err.message || 'Unfortunately we were unable to retrieve all Customers for this business.'
         });
     });
+  }
+
+  delete(req, res) {
+    const id = req.params.id;
+
+    Customer.destroy({
+      where: { cid: id }
+    })
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "The customer was deleted successfully!"
+          });
+        } else {
+          res.send({
+            message: "Unfortunately this customer could not be found, please double check the ID."
+          });
+        }
+      })
+      .catch(err => {
+        console.log(id)
+        res.status(500).send({
+          message: "Unable to delete this customer."
+        })
+      })
   }
 }
 

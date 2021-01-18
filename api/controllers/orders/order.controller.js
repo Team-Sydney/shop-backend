@@ -9,6 +9,7 @@ class OrderController {
       // oid: req.body.oid,
       cid: req.body.cid,
       bid: req.body.bid,
+      status: req.body.status,
       qrCode: req.body.qrCode
     };
 

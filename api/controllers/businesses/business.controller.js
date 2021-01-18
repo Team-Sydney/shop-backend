@@ -17,7 +17,11 @@ class BusinessController {
     const business = {
       bid: req.body.bid,
       uid: req.body.uid,
-      name: req.body.name
+      name: req.body.name,
+      address: req.body.address,
+      phoneNum: req.body.phoneNum,
+      openTime: req.body.openTime,
+      closeTime: req.body.closeTime
     };
 
     Business.create(business)
@@ -45,24 +49,18 @@ class BusinessController {
         const created = data[1];
         const businessId = data[0].bid;
         
-        if (created) {
-          return data;
-        } else {
-          return Business.findOne({
+        return Business.findOne({
+          where: { bid: businessId },
+          include: [{
+            model: Order,
             where: { bid: businessId },
-            include: [{
-              model: Order,
-              where: { bid: businessId },
-              required: false
-            }, {
-              model: Product,
-              where: { bid: businessId },
-              required: false
-            }]
-          })
-        }
-
-        console.log(businessId);
+            required: false
+          }, {
+            model: Product,
+            where: { bid: businessId },
+            required: false
+          }]
+        })
       })
       .then(data => {
         res.send(data);

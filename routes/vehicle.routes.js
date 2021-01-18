@@ -1,4 +1,3 @@
-const CategoryController = require('../api/controllers/categories/category.controller.js');
 const VehicleController = require('../api/controllers/vehicles/vehicle.controller.js');
 const controller = new VehicleController();
 
