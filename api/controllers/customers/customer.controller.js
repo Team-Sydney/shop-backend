@@ -88,6 +88,31 @@ class CustomerController {
         });
     });
   }
+
+  delete(req, res) {
+    const id = req.params.id;
+
+    Customer.destroy({
+      where: { cid: id }
+    })
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "The customer was deleted successfully!"
+          });
+        } else {
+          res.send({
+            message: "Unfortunately this customer could not be found, please double check the ID."
+          });
+        }
+      })
+      .catch(err => {
+        console.log(id)
+        res.status(500).send({
+          message: "Unable to delete this customer."
+        })
+      })
+  }
 }
 
 module.exports = CustomerController;

@@ -11,5 +11,7 @@ module.exports = (app) => {
 
   router.get("/user/:id", controller.findByUID);
 
+  router.delete("/user/:id", controller.delete);
+
   app.use('/api/customers', router);
 }
