@@ -17,6 +17,7 @@ const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
 module.exports = (req, res, next) => {
 
   if (!req.file) {
+    console.log("400");
     res.status(400).send('No file uploaded.');
     return;
   }
@@ -26,6 +27,7 @@ module.exports = (req, res, next) => {
   const blobStream = blob.createWriteStream();
 
   blobStream.on('error', err => {
+    console.log(`${err}: ${err.message}`);
     next(err);
   });
 
@@ -34,6 +36,7 @@ module.exports = (req, res, next) => {
     const publicUrl = format(
         `https://storage.googleapis.com/${bucket.name}/${blob.name}`
     );
+    console.log(publicUrl);
     res.status(200).send(publicUrl);
   });
 

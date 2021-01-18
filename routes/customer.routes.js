@@ -9,6 +9,8 @@ module.exports = (app) => {
 
   router.get("/:id", controller.findOne);
 
+  router.get("/", controller.findAll);
+
   router.get("/user/:id", controller.findByUID);
 
   router.delete("/user/:id", controller.delete);
