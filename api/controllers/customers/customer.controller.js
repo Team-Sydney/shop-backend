@@ -61,7 +61,6 @@ class CustomerController {
         where: { uid: id }
       })
       .then(customer => {
-        const created = customer[1];
         const custId = customer[0].cid;
 
         return Customer.findOne({
