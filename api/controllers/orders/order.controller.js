@@ -6,7 +6,6 @@ const { sendNotificationSMS } = require('../../../services/notifications/index')
 class OrderController {
   createOrder(req, res) {
     const order = {
-      // oid: req.body.oid,
       cid: req.body.cid,
       bid: req.body.bid,
       status: req.body.status,
@@ -54,6 +53,7 @@ class OrderController {
   
   findByBusiness(req, res) {
       const id = req.params.id;
+
       Order.findAll({ 
         where: { bid: id } 
       })
@@ -104,6 +104,7 @@ class OrderController {
 
   async confirmOrder(req, res){
     const id = req.params.id;
+    
     let order = await Order.findOne({ where: {oid: id } });
 
     if(order.status){ 
