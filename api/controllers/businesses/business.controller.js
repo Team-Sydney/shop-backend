@@ -46,7 +46,6 @@ class BusinessController {
         where: { uid: myUid }
       })
       .then(data => {
-        const created = data[1];
         const businessId = data[0].bid;
         
         return Business.findOne({

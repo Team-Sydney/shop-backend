@@ -6,7 +6,7 @@ module.exports = (app) => {
   
   let router = require("express").Router();
 
-  router.post("/", controller.createOrder);
+  router.post("/", controller.createOrder);//Sends order request to business
 
   router.get("/:id", controller.findOne);
 

@@ -1,6 +1,6 @@
 
 module.exports = { 
-    sendNotificationSMS(to, text){
+    sendSMS(to, text){
         return require('./sendNotificationSMS.js')(to, text);
     }
 }

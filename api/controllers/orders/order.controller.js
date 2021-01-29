@@ -1,12 +1,15 @@
 const db = require('../../../models');
 const Order = db.order;
 const Customer = db.customer;
-const { sendNotificationSMS } = require('../../../services/notifications/index');
+const { sendSMS } = require('../../../services/notifications/index');
+const { sendNotification } = require('../../../services/messaging/index')
 
 class OrderController {
+  //To do: retrieve business ID to find token and send notification
+  //       look back at order model and divide into 2 models
   createOrder(req, res) {
+    let token = req.body.token;
     const order = {
-      // oid: req.body.oid,
       cid: req.body.cid,
       bid: req.body.bid,
       status: req.body.status,
@@ -15,6 +18,7 @@ class OrderController {
 
     Order.create(order)
       .then(data => {
+        sendNotification(token, "New order, please confirm.")
         res.send(data);
       }) 
       .catch(err => {
@@ -54,6 +58,7 @@ class OrderController {
   
   findByBusiness(req, res) {
       const id = req.params.id;
+
       Order.findAll({ 
         where: { bid: id } 
       })
@@ -104,6 +109,7 @@ class OrderController {
 
   async confirmOrder(req, res){
     const id = req.params.id;
+    
     let order = await Order.findOne({ where: {oid: id } });
 
     if(order.status){ 
@@ -121,7 +127,7 @@ class OrderController {
             message: "The order has been updated successfully"
           });
           let customer = await Customer.findOne({ where: { cid: order.cid } });
-          sendNotificationSMS(customer.phoneNum, "Your order is ready, please come at your designated pick-up time.")
+          sendSMS(customer.phoneNum, "Your order is ready, please come at your designated pick-up time.")
         } else {
           res.send({
             message: "Unfortunately this order could not be found, please double check the ID."

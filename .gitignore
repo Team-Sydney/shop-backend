@@ -3,3 +3,4 @@ cert/cc-ca.crt
 cert/cc-ca.crt.outdated
 .env
 config/key.json
+cert/service-account.json
