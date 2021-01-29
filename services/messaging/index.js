@@ -1,5 +1,5 @@
 module.exports = { 
-  sendNotification(token) {
-      return require('./notifyOrder.js')(token);
+  sendNotification(token, msg) {
+      return require('./notifyOrder.js')(token, msg);
   }
 }
