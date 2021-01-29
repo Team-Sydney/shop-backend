@@ -1,8 +1,6 @@
-// const admin = require('./firebaseConfig');
-
 const admin = require('firebase-admin');
 const serviceAccount = require("../../cert/service-account.json");
-
+// Only initiate firebase once
 if(admin.apps.length === 0){
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
@@ -10,7 +8,10 @@ if(admin.apps.length === 0){
 }
 // Send a message to the device corresponding to the provided registration token.
 module.exports = (token, msg) => {
-  
+/**
+ * Token solution is temporary, using the uid to create topics and subscribe
+ * to them seems like a better option 
+ */
   let message = {
     data: {
       msg: msg,
