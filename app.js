@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Database
-const db = require("./models");
+const db = require("./sequelize");
 db.sequelize.sync({force:false}); // Set force to false if you'd like to use existing tables, otherwise keep it true as we keep on finalizing our models
 
 // Routes

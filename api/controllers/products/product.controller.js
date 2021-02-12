@@ -1,5 +1,5 @@
-const db = require('../../../models');
-const Product = db.product;
+const db = require('../../../sequelize');
+const Product = db.Products;
 const { uploadImageFile } = require('../../../services/uploads/index');
 
 

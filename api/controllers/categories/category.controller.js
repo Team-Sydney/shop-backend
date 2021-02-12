@@ -1,5 +1,5 @@
-const db = require('../../../models');
-const Category = db.category;
+const db = require('../../../sequelize');
+const Category = db.Categories;
 
 
 class CategoryController {

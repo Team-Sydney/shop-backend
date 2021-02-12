@@ -1,7 +1,7 @@
-const db = require('../../../models');
-const Customer = db.customer;
-const Vehicle = db.vehicle;
-const Order = db.order;
+const db = require('../../../sequelize');
+const Customer = db.Customers;
+const Vehicle = db.Vehicles;
+const Order = db.Orders;
 
 class CustomerController {
   createCustomer(req, res) {
