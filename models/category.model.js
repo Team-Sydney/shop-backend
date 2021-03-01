@@ -1,11 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
   const Category = sequelize.define('Categories', {
-    catid: {
+    categoryId: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
-    name: {
+    productId: {
+      type: Sequelize.INTEGER
+    },
+    categoryName: {
       type: Sequelize.STRING
     }
   });

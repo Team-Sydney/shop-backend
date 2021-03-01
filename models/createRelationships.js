@@ -3,11 +3,13 @@ function createRelationships(sequelize) {
 
   Products.belongsToMany(Orders, { through: OrderProduct });
   
-  Customers.hasMany(Vehicles, {foreignKey: 'cid'});
-  Customers.hasMany(Orders, {foreignKey: 'cid'});
+  Customers.hasMany(Vehicles, {foreignKey: 'customerId'});
+  Customers.hasMany(Orders, {foreignKey: 'customerId'});
 
-  Businesses.hasMany(Orders, { foreignKey: 'bid' });
-  Businesses.hasMany(Products, { foreignKey: 'bid' });
+  Vehicles.belongsTo(Customers, {foreignKey: 'customerId'});
+
+  Businesses.hasMany(Orders, { foreignKey: 'businessId' });
+  Businesses.hasMany(Products, { foreignKey: 'businessId' });
 }
 
 module.exports = { createRelationships }

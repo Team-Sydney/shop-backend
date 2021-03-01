@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
   const OrderProduct = sequelize.define('OrderProduct', {
-    //oid
-    //pid
+    //orderId
+    //productId
     quantity: {
       type: Sequelize.INTEGER
     }

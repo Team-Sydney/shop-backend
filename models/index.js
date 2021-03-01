@@ -24,8 +24,9 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-
+//TODO: Receipts, unless stored with a 3rd party
 db.customer = require("./customer.model.js")(sequelize, Sequelize);
+db.customer = require("./employee.model.js")(sequelize, Sequelize);
 db.vehicle = require("./vehicle.model.js")(sequelize, Sequelize);
 db.business = require("./business.model.js")(sequelize, Sequelize);
 db.product = require("./product.model.js")(sequelize, Sequelize);

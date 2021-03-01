@@ -1,14 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
   const Order = sequelize.define('Orders', {
-    oid: {
+    orderId: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
-    cid: {
+    customerId: {
       type: Sequelize.INTEGER,
     },
-    bid: {
+    businessId: {
       type: Sequelize.INTEGER,
     },
     status: {
@@ -17,6 +17,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     qrCode: {
       type: Sequelize.TEXT,
+    },
+    orderDate: {
+      type: Sequelize.DATE
     }
   });
 

@@ -1,12 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
     const Vehicle = sequelize.define('Vehicles', {
-      vid: {
+      vehicleId: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true
       },
-      cid: {
-        type: Sequelize.INTEGER
+      customerId: {
+        type: Sequelize.TEXT
       },
       brand: {
         type: Sequelize.STRING

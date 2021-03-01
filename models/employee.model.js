@@ -1,7 +1,10 @@
 module.exports = (sequelize, Sequelize) => {
-  const Customer = sequelize.define('Customers', {
-    customerId: {
-      type: Sequelize.TEXT,
+  const Employee = sequelize.define('Employees', {
+    employeeId: {
+      type: Sequelize.TEXT
+    },
+    businessId: {//FK
+      type: Sequelize.INTEGER
     },
     name: {
       type: Sequelize.TEXT
