@@ -19,7 +19,7 @@ function createRelationships(sequelize) {
     Products.belongsTo(Businesses, { foreignKey: 'businessId' });
     Products.belongsToMany(Orders, { through: OrderProduct });
 
-    Categories.hasMany(Products, { foreignKey: 'productId' });
+    // Categories.hasMany(Products, { foreignKey: 'productId' });
 }
 
 module.exports = { createRelationships }

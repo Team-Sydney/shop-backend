@@ -3,106 +3,104 @@ const Category = db.category;
 
 
 class CategoryController {
-  createCategory(req, res) {
-    if(!req.body.name) {
-      res.status(400).send({
-        message: "Please enter the name of the category."
-      });
-      return;
+    createCategory(req, res) {
+        if (!req.body.name) {
+            res.status(400).send({
+                message: "Please enter the name of the category."
+            });
+            return;
+        }
+
+        const category = {
+            categoryId: req.body.categoryId,
+            name: req.body.name
+        };
+
+        Category.create(category)
+            .then(data => {
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "An error occurred while creating the category."
+                });
+            });
     }
 
-    const category = {
-      catid: req.body.catid,
-      name: req.body.name
-    };
+    findOne(req, res) {
+        const id = req.params.id;
 
-    Category.create(category)
-      .then(data => {
-        res.send(data);
-      }) 
-      .catch(err => {
-        res.status(500).send({
-          message: 
-            err.message || "An error occurred while creating the category."
-        });
-      });
-  }
+        Category.findByPk(id)
+            .then(data => {
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: "Unfortunately we were unable to retrieve this category."
+                });
+            });
+    }
 
-  findOne(req, res) {
-    const id = req.params.id;
+    findAll(req, res) {
+        Category.findAll()
+            .then(data => {
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || 'Unfortunately we were unable to retrieve all categories.'
+                });
+            });
+    }
 
-    Category.findByPk(id)
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Unfortunately we were unable to retrieve this category."
-        });
-      });
-  }
+    update(req, res) {
+        const id = req.params.id;
 
-  findAll(req, res) {
-    Category.findAll()
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || 'Unfortunately we were unable to retrieve all categories.'
-        });
-      });
-  }
+        Category.update(req.body, {
+                where: { categoryId: id }
+            })
+            .then(num => {
+                if (num == 1) {
+                    res.send({
+                        message: "The category has been updated successfully"
+                    });
+                } else {
+                    res.send({
+                        message: "Unfortunately this category could not be found, please double check the ID."
+                    });
+                }
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: "Unable to delete this category."
+                })
+            })
+    }
 
-  update(req, res) {
-    const id = req.params.id;
+    delete(req, res) {
+        const id = req.params.id;
 
-    Category.update(req.body, {
-      where: { catid: id }
-    })
-      .then(num => {
-        if(num == 1) {
-          res.send({
-            message: "The category has been updated successfully"
-          });
-        } else {
-          res.send({
-            message: "Unfortunately this category could not be found, please double check the ID."
-          });
-        }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Unable to delete this category."
-        })
-      })
-  }
-
-  delete(req, res) {
-    const id = req.params.id;
-
-    Category.destroy({
-      where: { catid: id }
-    })
-      .then(num => {
-        if (num == 1) {
-          res.send({
-            message: "The category was deleted successfully!"
-          });
-        } else {
-          res.send({
-            message: "Unfortunately this category could not be found, please double check the ID."
-          });
-        }
-      })
-      .catch(err => {
-        console.log(id)
-        res.status(500).send({
-          message: "Unable to delete this category."
-        })
-      })
-  }
+        Category.destroy({
+                where: { categoryId: id }
+            })
+            .then(num => {
+                if (num == 1) {
+                    res.send({
+                        message: "The category was deleted successfully!"
+                    });
+                } else {
+                    res.send({
+                        message: "Unfortunately this category could not be found, please double check the ID."
+                    });
+                }
+            })
+            .catch(err => {
+                console.log(id)
+                res.status(500).send({
+                    message: "Unable to delete this category."
+                })
+            })
+    }
 }
 
 module.exports = CategoryController;

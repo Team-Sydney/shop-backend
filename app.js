@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Database
 const db = require("./models");
-db.sequelize.sync({force:false}); // Set force to false if you'd like to use existing tables, otherwise keep it true as we keep on finalizing our models
+db.sequelize.sync({ force: true }); // Set force to false if you'd like to use existing tables, otherwise keep it true as we keep on finalizing our models
 
 // Routes
 require("./routes/category.routes")(app);
@@ -28,5 +28,5 @@ require("./routes/product.routes")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+    console.log(`Server is running on port ${PORT}.`);
 });
