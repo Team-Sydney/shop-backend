@@ -1,6 +1,6 @@
-const db = require('../../../models');
-const Order = db.order;
-const Customer = db.customer;
+const db = require('../../../sequelize');
+const Order = db.Orders;
+const Customer = db.Customers;
 const { sendSMS } = require('../../../services/notifications/index');
 const { sendNotification } = require('../../../services/messaging/index')
 

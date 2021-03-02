@@ -1,6 +1,6 @@
-const db = require('../../../models');
+const db = require('../../../sequelize');
 const { body, validationResult } = require('express-validator')
-const Vehicle = db.vehicle;
+const Vehicle = db.Vehicles;
 
 
 class VehicleController {

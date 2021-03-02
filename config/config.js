@@ -11,7 +11,7 @@ module.exports = {
     logging: false,
     dialectOptions: {
       ssl: {
-        ca: fs.readFileSync('./cert/cc-ca.crt').toString()
+        ca: fs.readFileSync('./certs/cc-ca.crt').toString()
       }
     }
   }

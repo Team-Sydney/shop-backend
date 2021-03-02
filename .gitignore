@@ -1,6 +1,4 @@
 node_modules
-cert/cc-ca.crt
-cert/cc-ca.crt.outdated
+certs/*
 .env
 config/key.json
-cert/service-account.json
