@@ -1,4 +1,4 @@
 node_modules
-cert/*
+certs/*
 .env
 config/key.json
