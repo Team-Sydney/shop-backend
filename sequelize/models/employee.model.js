@@ -1,8 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
-    const Customer = sequelize.define('Customers', {
-        customerId: {
+    const Employee = sequelize.define('Employees', {
+        employeeId: {
             type: Sequelize.TEXT,
             primaryKey: true
+        },
+        businessId: { //FK
+            type: Sequelize.INTEGER
         },
         name: {
             type: Sequelize.TEXT
@@ -15,5 +18,5 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
-    return Customer;
+    return Employee;
 };
