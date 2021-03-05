@@ -37,7 +37,7 @@ class BusinessController {
     // when business user logs in with uid
     // if uid empty  create entry with uid autoincrement bid
     // else , returns business info , all products, and all orders
-    findBusinessProductsOrdersByUid(req, res) {
+    findBusinessProductsOrdersById(req, res) {
         const businessId = req.params.id;
 
         Business.findOrCreate({
