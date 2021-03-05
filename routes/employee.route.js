@@ -6,14 +6,14 @@ module.exports = (app) => {
   let router = require("express").Router();
 
   router.post("/", controller.createEmployee);
+  //Temporary unused routes
+  // router.get("/:id", controller.findOne);
 
-  router.get("/:id", controller.findOne);
+  // router.get("/", controller.findAll);
 
-  router.get("/", controller.findAll);
+  // router.get("/user/:id", controller.findById);
 
-  router.get("/user/:id", controller.findById);
-
-  router.delete("/user/:id", controller.delete);
+  // router.delete("/user/:id", controller.delete);
 
   app.use('/api/employees', router);
 }
