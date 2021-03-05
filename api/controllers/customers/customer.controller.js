@@ -52,7 +52,7 @@ class CustomerController {
             });
     }
 
-    findByUID(req, res) {
+    findById(req, res) {
         const id = req.params.id;
         Customer.findOrCreate({
                 where: { customerId: id }
