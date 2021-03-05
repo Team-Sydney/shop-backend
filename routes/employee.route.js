@@ -7,13 +7,13 @@ module.exports = (app) => {
 
   router.post("/", controller.createEmployee);
 
-  router.get("/:id", controller.findOne);
+//   router.get("/:id", controller.findOne);
 
-  router.get("/", controller.findAll);
+//   router.get("/", controller.findAll);
 
-  router.get("/user/:id", controller.findById);
+//   router.get("/user/:id", controller.findById);
 
-  router.delete("/user/:id", controller.delete);
+//   router.delete("/user/:id", controller.delete);
 
   app.use('/api/employees', router);
 }
