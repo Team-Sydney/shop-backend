@@ -1,7 +1,7 @@
-import * as admin from 'firebase-admin';
+const admin = require('firebase-admin');
 
-admin.initializeApp({
-  credential: '../certs/GOOGLE_APPLICATION_CREDENTIALS.json'
-});
-
-export default admin
+module.exports = () => {
+  admin.initializeApp({
+    credential: '../certs/GOOGLE_APPLICATION_CREDENTIALS.json'
+  });
+}
