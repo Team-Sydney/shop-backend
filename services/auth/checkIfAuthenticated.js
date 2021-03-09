@@ -1,6 +1,7 @@
-import admin from './firebase-service';
+const admin = require('../firebase-service');
+const { getAuthToken } = require('./index');
 
-module.export = (req, res, next) => {
+module.exports = (req, res, next) => {
   getAuthToken(req, res, async () => {
     try {
       const { authToken } = req;
