@@ -1,4 +1,3 @@
-const CategoryController = require('../api/controllers/categories/category.controller.js');
 const OrderController = require('../api/controllers/orders/order.controller.js');
 const controller = new OrderController();
 
@@ -6,7 +5,7 @@ module.exports = (app) => {
   
   let router = require("express").Router();
 
-  router.post("/", controller.createOrder);
+  router.post("/", controller.createOrder);//Sends order request to business
 
   router.get("/:id", controller.findOne);
 

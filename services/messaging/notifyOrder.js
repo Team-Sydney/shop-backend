@@ -1,31 +1,34 @@
-const firebase = require('firebase/app');
-// require('firebase/messaging');
-
-const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  // authDomain: "myapp-project-123.firebaseapp.com",
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  // storageBucket: "myapp-project-123.appspot.com",
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  // appId: "1:65211879909:web:3ae38ef1cdcb2e01fe5f0c",
+const admin = require('firebase-admin');
+const serviceAccount = require("../../certs/service-account.json");
+// Only initiate firebase once
+if(admin.apps.length === 0){
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+  });
 }
-
-firebase.initializeApp(firebaseConfig);
-
-module.exports = {messaging(){ firebase.messaging()}}
-
-
-messaging.getToken({vapidKey: process.env.FIREBASE_VAPID_KEY}).then( currentToken =>{
-  
-  if (currentToken) {
-    // Send the token to your server and update the UI if necessary
-    // ...
-  } else {
-    // Show permission request UI
-    console.log('No registration token available. Request permission to generate one.');
-    // ...
+// Send a message to the device corresponding to the provided registration token.
+module.exports = (token, msg) => {
+/**
+ * Token solution is temporary, using the uid to create topics and subscribe
+ * to them seems like a better option 
+ */
+  let message = {
+    data: {
+      msg: msg,
+      time: '2:45'
+    },
+    // Union field target can be only one of the following:
+    // token: string,
+    // topic: string,
+    // condition: string
+    token: token
+  };
+  admin.messaging().send(message)
+    .then((response) => {
+    // Response is a message ID string.
+      console.log('Successfully sent message:', response);
+    })
+    .catch((error) => {
+    console.log('Error sending message:', error);
+    });
   }
-}).catch((err) => {
-  console.log('An error occurred while retrieving token. ', err);
-  // ...
-});
