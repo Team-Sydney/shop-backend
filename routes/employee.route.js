@@ -7,6 +7,8 @@ module.exports = (app) => {
 
   router.post("/", controller.createEmployee);
 
+  router.get("/business/:id", controller.findAllByBusiness);
+
   router.get("/user/:id", controller.findById);
 
   router.delete("/user/:id", controller.delete);
