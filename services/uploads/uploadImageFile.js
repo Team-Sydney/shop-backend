@@ -7,8 +7,13 @@ const {format} = require('util');
 // These environment variables are set automatically on Google App Engine
 const {Storage} = require('@google-cloud/storage');
 
+var config = {
+  projectId: 'kinetic-highway-301904',
+  keyFilename: '../../certs/GOOGLE_APPLICATION_CREDENTIALS.json'
+}
+
 // Instantiate a storage client
-const storage = new Storage();
+const storage = new Storage(config);
 
 // A bucket is a container for objects (files).
 const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);

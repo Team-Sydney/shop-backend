@@ -1,4 +1,3 @@
-const CategoryController = require('../api/controllers/categories/category.controller.js');
 const OrderController = require('../api/controllers/orders/order.controller.js');
 const controller = new OrderController();
 

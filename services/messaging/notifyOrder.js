@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-const serviceAccount = require("../../cert/service-account.json");
+const serviceAccount = require("../../certs/service-account.json");
 // Only initiate firebase once
 if(admin.apps.length === 0){
   admin.initializeApp({

@@ -8,7 +8,7 @@ module.exports = (app) => {
   // Create a business
   router.post("/", controller.createBusiness);
 
-  router.get("/uid/:id", controller.findBusinessProductsOrdersByUid)
+  router.get("/uid/:id", controller.findBusinessProductsOrdersById)
 
   router.get("/:id", controller.findOne)
 
