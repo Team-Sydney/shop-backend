@@ -40,7 +40,7 @@ class BusinessController {
     findBusinessProductsOrdersById(req, res) {
         const businessId = req.params.id;
 
-        Business.findOrCreate({
+        Business.findCreateFind({
                 where: { businessId: businessId }
             })
             .then(data => {

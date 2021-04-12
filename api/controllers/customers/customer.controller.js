@@ -54,7 +54,7 @@ class CustomerController {
 
     findById(req, res) {
         const id = req.params.id;
-        Customer.findOrCreate({
+        Customer.findCreateFind({
                 where: { customerId: id }
             })
             .then(customer => {
